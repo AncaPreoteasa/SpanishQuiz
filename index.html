@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="author" content="Anca Preoteasa">
+    <title>Quiz Game</title>
+    <meta charset="utf-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Week 6/global.css">
+    <link rel="icon" type="image/png" href="Images/quiz-favicon.jpg">
+    <script>
+        function showNextQuestion() {
+
+        };
+
+        function resetState() {
+
+        };
+
+        function selectCorrectAnswer() {
+
+        };
+
+        function showResult() {
+
+        };
+
+        const questions = [
+            {
+                question: "How do you say 'Good morning'?",
+                answers: [
+                    { text: 'Buenas noches', correct: false },
+                    { text: 'Buenas tardes', correct: false },
+                    { text: 'Buenas dias', correct: false },
+                    { text: 'Buenos días', correct: true }
+                ]
+            },
+            {
+                question: "What does 'Por favor' mean?",
+                answers: [
+                    { text: 'I am begging you', correct: false },
+                    { text: 'Thank you', correct: false },
+                    { text: 'Please', correct: true },
+                    { text: 'I am begging you', correct: false }
+                ]
+            },
+            {
+                question: "How do you say 'Sorry'?",
+                answers: [
+                    { text: 'Lo siento', correct: true },
+                    { text: 'Nos vemos', correct: false },
+                    { text: 'Saludos', correct: false },
+                    { text: 'Gracias', correct: false }
+                ]
+            },
+            {
+                question: "Which one is a school supply?",
+                answers: [
+                    { text: 'compañero', correct: false },
+                    { text: 'cuaderno', correct: true },
+                    { text: 'profesora', correct: false },
+                    { text: 'deber', correct: false }
+                ]
+            },
+            {
+                question: "What is 'I ate'?",
+                answers: [
+                    { text: 'Comé', correct: false },
+                    { text: 'Comaste', correct: false },
+                    { text: 'Comí', correct: true },
+                    { text: 'Como', correct: false }
+                ]
+            },
+            {
+                question: "Complete the sentence 'Perdón, me podría...'?",
+                answers: [
+                    { text: 'comer el heldo', correct: false },
+                    { text: 'ayudar a mi amigo', correct: false },
+                    { text: 'hablar con el jefe', correct: false },
+                    { text: 'decir la hora', correct: true }
+                ]
+            },
+            {
+                question: "How do you say 'the coffee'?",
+                answers: [
+                    { text: 'la café', correct: false },
+                    { text: 'cafe', correct: false },
+                    { text: 'café', correct: false },
+                    { text: 'el café', correct: true }
+                ]
+            },
+            {
+                question: "What is the next number in the list 'ocho, diez, doce...'?",
+                answers: [
+                    { text: 'catorce', correct: true },
+                    { text: 'quince', correct: false },
+                    { text: 'cinco', correct: false },
+                    { text: 'trece', correct: false }
+                ]
+            },
+            {
+                question: "How do you say 'the fork'?",
+                answers: [
+                    { text: 'la forca', correct: false },
+                    { text: 'el teledor', correct: false },
+                    { text: 'la teledora', correct: false },
+                    { text: 'el tenedor', correct: true }
+                ]
+            },
+            {
+                question: "How do you say 'I am full'?",
+                answers: [
+                    { text: 'Soy lleno', correct: false },
+                    { text: 'Estoy lleno', correct: true },
+                    { text: 'Me basta', correct: false },
+                    { text: 'Estoy vacía', correct: false }
+                ]
+            }
+        ]
+    </script>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            background-color: #457373;
+            width: 100%;
+            height: 100%;
+        }
+
+        h1 {
+            color: #eaede9;
+            text-align: center;
+            letter-spacing: 1px;
+            padding: 50px;
+            margin: 0 50px;
+            font-size: 3em;
+        }
+
+        .nav button {
+            color: #eeecec;
+            background-color: #457373;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .questions-image-container {
+            display: flex;
+            flex-grow: 1 1;
+        }
+
+        .quiz-questions {
+            width: 100%;
+            height: calc(100vh - 200px);
+            background-image: url("Images/green-geometric-frame.avif");
+            padding: 20px 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quiz-questions button {
+            color: white;
+            padding: 20px 40px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button:hover {
+            color: #023737;
+            background-color: #f6f2f2;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #524f4f;
+            padding: 20px 40px;
+            font-size: 1.5em;
+        }
+
+        .choice-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        button {
+            background-color: #457373;
+            margin: 10px;
+        }
+
+        img {
+            width: 50em;
+            height: 34em;
+        }
+
+        @media only screen and (max-width: 1000px) {
+            img {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <h1>Quiz Time!</h1>
+    </div>
+    <hr>
+    <div class="questions-image-container">
+        <div class="quiz-questions">
+            <h2>How do you say "Hello" in Spanish?</h2>
+            <div class="choice-wrapper">
+                <button>Hola</button>
+                <button>Ola</button>
+                <button>Holla</button>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="Images/espanol.avif"></img>
+        </div>
+    </div>
+</body>
+
+</html>

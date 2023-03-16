@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="author" content="Anca Preoteasa">
+    <title>Quiz Game</title>
+    <meta charset="utf-8>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Week 6/global.css">
+    <link rel="icon" type="image/png" href="Images/quiz-favicon.jpg">
+    <style>
+        body {
+            background-color: #457373;
+            background-image: url("Images/green-geometric-frame.avif");
+        }
+
+        h1 {
+            color: #eaede9;
+            text-align: center;
+            letter-spacing: 1px;
+            padding: 50px;
+            margin: 0 50px;
+            font-size: 3em;
+        }
+
+        .result-share-btn {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-message,
+        .share-btn {
+            margin: 10px;
+        }
+
+        .congratulation-message {
+            font-size: 2em;
+            border: 1px solid;
+            padding: 20px;
+        }
+
+        h1,
+        h2,
+        h3,
+        .bottom-button-wrapper {
+            text-align: center;
+            color: #405d5b;
+            margin: 50px 0;
+        }
+
+        button {
+            color: white;
+            background-color: #5f9091;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin: 5px;
+        }
+
+        button:hover {
+            color: #023737;
+            background-color: #f6f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Result:</h1>
+    <h2 class="congratulation-message">Congratulations on finishing the quiz!</h2>
+    <div class="result-share-btn">
+        <h2 class="result-message">You got 9/10</h2>
+        <button class="share-btn">Share</button>
+    </div>
+    <div class="bottom-button-wrapper">
+        <button>Retake quiz</button>
+        <button>Check Answers</button>
+        <button>Subscribe!</button>
+    </div>
+</body>
