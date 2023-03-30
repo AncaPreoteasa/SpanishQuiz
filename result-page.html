@@ -78,4 +78,157 @@
         <button>Check Answers</button>
         <button>Subscribe!</button>
     </div>
+
+    <script>
+        const questions = [
+            {
+                question: "How do you say 'Hello' in Spanish?",
+                answers: [
+                    { text: 'Hola', correct: true },
+                    { text: 'Ola', correct: false },
+                    { text: 'Holla', correct: false },
+                ]
+            },
+            {
+                question: "How do you say 'Good morning'?",
+                answers: [
+                    { text: 'Buenas noches', correct: false },
+                    { text: 'Buenas tardes', correct: false },
+                    { text: 'Buenos días', correct: true }
+                ]
+            },
+            {
+                question: "What does 'Por favor' mean?",
+                answers: [
+                    { text: 'I am begging you', correct: false },
+                    { text: 'Thank you', correct: false },
+                    { text: 'Please', correct: true },
+                ]
+            },
+            {
+                question: "How do you say 'Sorry'?",
+                answers: [
+                    { text: 'Lo siento', correct: true },
+                    { text: 'Saludos', correct: false },
+                    { text: 'Gracias', correct: false }
+                ]
+            },
+            {
+                question: "Which one is a school supply?",
+                answers: [
+                    { text: 'compañero', correct: false },
+                    { text: 'cuaderno', correct: true },
+                    { text: 'deber', correct: false }
+                ]
+            },
+            {
+                question: "What is 'I ate'?",
+                answers: [
+                    { text: 'Comé', correct: false },
+                    { text: 'Comí', correct: true },
+                    { text: 'Como', correct: false }
+                ]
+            },
+            {
+                question: "Complete the sentence 'Perdón, me podría...'?",
+                answers: [
+                    { text: 'comer el heldo', correct: false },
+                    { text: 'ayudar a mi amigo', correct: false },
+                    { text: 'decir la hora', correct: true }
+                ]
+            },
+            {
+                question: "How do you say 'the coffee'?",
+                answers: [
+                    { text: 'la café', correct: false },
+                    { text: 'el cafe', correct: false },
+                    { text: 'el café', correct: true }
+                ]
+            },
+            {
+                question: "What is the next number in the list 'ocho, diez, doce...'?",
+                answers: [
+                    { text: 'catorce', correct: true },
+                    { text: 'quince', correct: false },
+                    { text: 'trece', correct: false }
+                ]
+            },
+            {
+                question: "How do you say 'the fork'?",
+                answers: [
+                    { text: 'la forca', correct: false },
+                    { text: 'la tenedora', correct: false },
+                    { text: 'el tenedor', correct: true }
+                ]
+            },
+            {
+                question: "How do you say 'I am full'?",
+                answers: [
+                    { text: 'Soy lleno', correct: false },
+                    { text: 'Estoy lleno', correct: true },
+                    { text: 'Estoy vacía', correct: false }
+                ]
+            }
+        ]
+    
+        //currentQuestionIndex = 0;
+        //let shuffleQuestions, currentQuestionIndex;
+        //shuffleQuestions = questions.sort(() => Math.random() - .5);
+        let answerBtnsElement = document.getElementById("answer-buttons");
+    
+        //const choiceWrapper = document.getElementById('choice-wrapper');
+    
+        //choiceWrapper.addEventListener('click', (event) => {
+          //  const isButton = event.target.nodeName === 'BUTTON';
+            //if (!isButton) {
+              //  return;
+            //}
+    
+            //console.dir(event.target.id);
+            //questionContainer.appendChild(questionText);
+        //});
+    
+    
+        window.addEventListener("load", showFirstPage);
+    
+        function showFirstPage() {
+            let questionContainer = document.getElementById("question");
+            let questionText = document.createTextNode(questions[0].question);
+            questionContainer.appendChild(questionText);
+    
+            let firstChoiceContainer = document.getElementById("choice1");
+            let firstChoiceText = document.createTextNode(questions[0].answers[0].text);
+            firstChoiceContainer.appendChild(firstChoiceText);
+    
+            let secondChoiceContainer = document.getElementById("choice2");
+            let secondChoiceText = document.createTextNode(questions[0].answers[1].text);
+            secondChoiceContainer.appendChild(secondChoiceText);
+    
+            let thirdChoiceContainer = document.getElementById("choice3");
+            let thirdChoiceText = document.createTextNode(questions[0].answers[2].text);
+            thirdChoiceContainer.appendChild(thirdChoiceText);
+    
+        };
+    
+        document.getElementById("choice1").addEventListener("click", showNextQuestion);
+    
+        function showNextQuestion() {
+            let questionContainer = document.getElementById("question");
+            let questionText = document.createTextNode(questions[1].question);
+            questionContainer.firstChild.remove();
+            questionContainer.appendChild(questionText);
+        }
+    
+        function resetState() {
+    
+        };
+    
+        function selectCorrectAnswer() {
+    
+        };
+    
+        function showResult() {
+    
+        };
+    </script>
 </body>
