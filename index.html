@@ -10,8 +10,11 @@
     <link rel="icon" type="image/png" href="Images/quiz-favicon.jpg">
 
     <style>
-        body {
-            background-color: #457373;
+         body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
         }
 
         .hidden {
@@ -28,41 +31,42 @@
             height: 100%;
         }
 
-        h1 {
+        .h1-first {
             color: #eaede9;
             text-align: center;
             letter-spacing: 5px;
-            padding: 50px;
-            margin: 0 50px;
+            padding: 50px 0;
             font-size: 3em;
-            font-family: math;
             animation: quiz-heading 600ms ease-in;
         }
 
+        .h1-result {
+        color: #eaede9;
+        text-align: center;
+        letter-spacing: 1px;
+        padding: 50px;
+        margin: 0 50px;
+        font-size: 3em;
+      }
+
+      .h1-result,
+      .h2-result,
+      .h3-result,
+      .bottom-button-wrapper {
+        display: flex;
+    justify-content: center;
+        color: #405d5b;
+        margin: 50px 0;
+      }
+
         .exclamation-mark {
             color: #eaede9;
-            font-size: 1.2em;
-            font-family: math;
-            animation-delay: 1s;
-            animation: exclamation 600ms ease-in;
-
+            padding: 50px 0;
+            font-size: 4em;
+            animation: quiz-heading 1000ms ease-in;
         }
 
         @keyframes quiz-heading {
-            0% {
-                transform: translateY(-100%);
-            }
-
-            50% {
-                transform: translateY(-50%);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes exclamation {
             0% {
                 transform: translateY(-100%);
             }
@@ -162,7 +166,6 @@
             color: #524f4f;
             padding: 20px 40px;
             text-align: center;
-            font-family: cursive;
             font-size: 2em;
         }
 
@@ -176,7 +179,7 @@
 
         img {
             width: 50em;
-            height: 34em;
+            height: 100%;
         }
 
         @media only screen and (max-width: 600px) {
@@ -221,12 +224,120 @@
                 left: calc(50% - 14px);
             }
         }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .question-container {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .answer-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        button {
+            display: block;
+            padding: 10px;
+            background-color: #0e150e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #618d63;
+        }
+
+        .btn-close-cookies {
+            display: flex;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .button-cookies-wrapper {
+            background-color: rgb(236 236 236);
+            padding: 0.5em;
+            display: flex;
+             align-content: center;
+             align-items: center;
+           justify-content: center;
+     }
+
+     .cookies-paragraph{
+        padding: 1em;
+     }
+
+        .button-result {
+        color: white;
+        background-color: #5f9091;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        margin: 5px;
+      }
+
+      .button-result:hover {
+        color: #023737;
+        background-color: #f6f2f2;
+      }
+
+      .result-share-btn {
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .result-message,
+      .share-btn {
+        margin: 10px;
+      }
+
+      .congratulation-message {
+        font-size: 2em;
+        border: 1px solid;
+        padding: 20px;
+      }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .result-body {
+        background-color: #457373;
+        background-image: url("Images/green-geometric-frame.avif");
+      }
     </style>
 </head>
 
 <body>
     <div class="nav">
-        <h1>Quiz Time <span class="exclamation-mark">!</span></h1>
+        <h1 class="h1-first">Quiz Time</h1> <span class="exclamation-mark">!</span>
         <div class="down-arrow"></div>
     </div>
     <hr>
@@ -234,9 +345,9 @@
         <div class="quiz-questions">
             <h2 id="question"></h2>
             <div id="answer-buttons" class="choice-wrapper">
-                <button id="choice1"></button>
-                <button id="choice2"></button>
-                <button id="choice3"></button>
+                <button id="choice1" class="choice-btn"></button>
+                <button id="choice2" class="choice-btn"></button>
+                <button id="choice3" class="choice-btn"></button>
             </div>
         </div>
         <div class="image-container">
@@ -245,164 +356,165 @@
     </div>
 </body>
 <script>
+    const cookieMessage = document.createElement('div');
+    cookieMessage.classList.add('button-cookies-wrapper');
+    cookieMessage.innerHTML = '<p class="cookies-paragraph">We use cookies for improved functionality and analytics. </p> <button class="btn-close-cookies">Got it!</button>';
+    document.body.append(cookieMessage);
+
+    cookieMessage.style.backgroundColor = "#cfcccc;";
+    cookieMessage.style.height = "4em";
+
+    document.querySelector('.btn-close-cookies').addEventListener('click', function(){
+        cookieMessage.remove();
+    })
+
+    // Define quiz questions and answers
     const questions = [
         {
             question: "How do you say 'Hello' in Spanish?",
-            answers: [
-                { text: 'Hola', correct: true },
-                { text: 'Ola', correct: false },
-                { text: 'Holla', correct: false },
-            ]
+            choices: ["Hola", "Ola", "Holla"],
+            correctAnswer: "Hola",
         },
+
         {
             question: "How do you say 'Good morning'?",
-            answers: [
-                { text: 'Buenas noches', correct: false },
-                { text: 'Buenas tardes', correct: false },
-                { text: 'Buenos días', correct: true }
-            ]
+            choices: ["Buenas noches", "Buenas tardes", "Buenos días"],
+            correctAnswer: "Buenos días",
         },
         {
-            question: "What does 'Por favor' mean?",
-            answers: [
-                { text: 'I am begging you', correct: false },
-                { text: 'Thank you', correct: false },
-                { text: 'Please', correct: true },
-            ]
-        },
-        {
+            question: "Which on is not a school supply?",
+            choices: ["cuaderno", "boli", "patio"],
+            correctAnswer: "patio",
+        }, 
+        {question: "What does 'Por favor' mean?",
+        choices: ["I am begging you", "Thank you", "Please"],
+        correctAnswer: "I am begging you",
+         },
+         {
             question: "How do you say 'Sorry'?",
-            answers: [
-                { text: 'Lo siento', correct: true },
-                { text: 'Saludos', correct: false },
-                { text: 'Gracias', correct: false }
-            ]
-        },
-        {
-            question: "Which one is a school supply?",
-            answers: [
-                { text: 'compañero', correct: false },
-                { text: 'cuaderno', correct: true },
-                { text: 'deber', correct: false }
-            ]
-        },
-        {
-            question: "What is 'I ate'?",
-            answers: [
-                { text: 'Comé', correct: false },
-                { text: 'Comí', correct: true },
-                { text: 'Como', correct: false }
-            ]
-        },
-        {
+          choices: ["Lo siento", "Saludos", "Gracias"],
+          correctAnswer: "Lo siento",
+         },
+         {
+          question: "What is 'I ate'?",
+          choices: ["Comé", "Comí", "Como"],
+          correctAnswer: "Comí",
+         },
+         {
             question: "Complete the sentence 'Perdón, me podría...'?",
-            answers: [
-                { text: 'comer el heldo', correct: false },
-                { text: 'ayudar a mi amigo', correct: false },
-                { text: 'decir la hora', correct: true }
-            ]
+          choices: ["comer el helado", "ayudar a mi amigo", "decir la hora"],
+          correctAnswer: "decir la hora",
+         },
+         {
+          question: "How do you say 'the coffee'?",
+          choices: ["la café","el cafe","el café"],
+          correctAnswer: "el café",
         },
         {
-            question: "How do you say 'the coffee'?",
-            answers: [
-                { text: 'la café', correct: false },
-                { text: 'el cafe', correct: false },
-                { text: 'el café', correct: true }
-            ]
+          question:
+            "What is the next number in the list 'ocho, diez, doce...'?",
+          choices: ["catorce", "quince", "trece"],
+          correctAnswer: "catorce",
         },
         {
-            question: "What is the next number in the list 'ocho, diez, doce...'?",
-            answers: [
-                { text: 'catorce', correct: true },
-                { text: 'quince', correct: false },
-                { text: 'trece', correct: false }
-            ]
+          question: "How do you say 'the fork'?",
+          choices: ["la forca", "la tenedora", "el tenedor"],
+          correctAnswer: "el tenedor",
         },
         {
-            question: "How do you say 'the fork'?",
-            answers: [
-                { text: 'la forca', correct: false },
-                { text: 'la tenedora', correct: false },
-                { text: 'el tenedor', correct: true }
-            ]
-        },
-        {
-            question: "How do you say 'I am full'?",
-            answers: [
-                { text: 'Soy lleno', correct: false },
-                { text: 'Estoy lleno', correct: true },
-                { text: 'Estoy vacía', correct: false }
-            ]
+          question: "How do you say 'I am full'?",
+          choices: ["Soy lleno", "Estoy lleno", "Estoy vacía"],
+          correctAnswer: "Estoy lleno",
         }
-    ]
+    ];
 
-    //currentQuestionIndex = 0;
-    //let shuffleQuestions, currentQuestionIndex;
-    //shuffleQuestions = questions.sort(() => Math.random() - .5);
-    let answerBtnsElement = document.getElementById("answer-buttons");
+    let currentQuestion = 0;
+    let correctAnswersCounter = 0;
 
-    window.addEventListener("load", showFirstPage);
+    function showQuestion(currentQuestionIndex) {
+    if (currentQuestionIndex < questions.length) {
+        let currentQuestion = questions[currentQuestionIndex];
 
-    function showFirstPage() {
-        showQuestion();
-    };
+        let choices = currentQuestion.choices;
+        let correctAnswer = currentQuestion.choices[currentQuestion.correctAnswer];
 
-    function showNextQuestion() {
-        let questionContainer = document.getElementById("question");
-        let questionText = document.createTextNode(questions[1].question);
-        questionContainer.firstChild.remove();
-        questionContainer.appendChild(questionText);
+        document.getElementById("question").textContent = currentQuestion.question;
+        document.getElementById("choice1").textContent = choices[0];
+        document.getElementById("choice2").textContent = choices[1];
+        document.getElementById("choice3").textContent = choices[2];
 
-        let firstChoiceContainer = document.getElementById("choice1");
-        let firstChoiceText = document.createTextNode(questions[1].answers[0].text);
-        firstChoiceContainer.firstChild.remove();
-        firstChoiceContainer.appendChild(firstChoiceText);
+        function handleClick(choice) {
+            if (choice === correctAnswer) {
+                correctAnswersCounter++;
+            }
+            document.getElementById("choice1").removeEventListener("click", handleClick);
+            document.getElementById("choice2").removeEventListener("click", handleClick);
+            document.getElementById("choice3").removeEventListener("click", handleClick);
+            showQuestion(currentQuestionIndex + 1);
+        }
 
-        let secondChoiceContainer = document.getElementById("choice2");
-        let secondChoiceText = document.createTextNode(questions[1].answers[1].text);
-        secondChoiceContainer.firstChild.remove();
-        secondChoiceContainer.appendChild(secondChoiceText);
+        document.getElementById("choice1").addEventListener("click", () => handleClick(choices[0]));
+        document.getElementById("choice2").addEventListener("click", () => handleClick(choices[1]));
+        document.getElementById("choice3").addEventListener("click", () => handleClick(choices[2]));
 
-        let thirdChoiceContainer = document.getElementById("choice3");
-        let thirdChoiceText = document.createTextNode(questions[1].answers[2].text);
-        thirdChoiceContainer.firstChild.remove();
-        thirdChoiceContainer.appendChild(thirdChoiceText);
+    } else {
+        displayResultPage();
     }
+}
 
-    function showQuestion() {
-        let questionContainer = document.getElementById("question");
-        let questionText = document.createTextNode(questions[0].question);
-        questionContainer.appendChild(questionText);
-
-        let firstChoiceContainer = document.getElementById("choice1");
-        let firstChoiceText = document.createTextNode(questions[0].answers[0].text);
-        firstChoiceContainer.appendChild(firstChoiceText);
-
-        let secondChoiceContainer = document.getElementById("choice2");
-        let secondChoiceText = document.createTextNode(questions[0].answers[1].text);
-        secondChoiceContainer.appendChild(secondChoiceText);
-
-        let thirdChoiceContainer = document.getElementById("choice3");
-        let thirdChoiceText = document.createTextNode(questions[0].answers[2].text);
-        thirdChoiceContainer.appendChild(thirdChoiceText);
+function checkAnswers() {
+    let resultMessage = "Correct Answers:\n";
+    for (let i = 0; i < questions.length; i++) {
+        resultMessage += `Question ${i + 1}: ${questions[i].choices[questions[i].correctAnswer]}\n`;
     }
+    alert(resultMessage);
+}
 
-    document.getElementById("choice1").addEventListener("click", showNextQuestion);
-    document.getElementById("choice2").addEventListener("click", showNextQuestion);
-    document.getElementById("choice3").addEventListener("click", showNextQuestion);
+function retakeQuiz() {
+    currentQuestion = 0;
+    correctAnswersCounter = 0;
+    showQuestion(0);
+}
 
+function displayResultPage() {
+    let displayResultMessage = `You got ${correctAnswersCounter}/${questions.length}`;
+    let resultPage = `
+        <body class="result-body">
+            <h1 class="h1-result h1-result">Result:</h1>
+            <h2 class="congratulation-message h2-result">Congratulations on finishing the quiz!</h2>
+            <div class="result-share-btn">
+                <h2 class="result-message h2-result">${displayResultMessage}</h2>
+                <button class="share-btn button-result">Share</button>
+            </div>
+            <div class="bottom-button-wrapper">
+                <button class="button-result" onclick="retakeQuiz()">Retake quiz</button>
+                <button class="button-result" onclick="checkAnswers()">Check Answers</button>
+                <button class="button-result">Subscribe!</button>
+            </div>
+        </body>
+    `;
+    document.body.innerHTML = resultPage;
+}
 
-    function resetState() {
+showQuestion(0);
 
-    };
+const choiceWrapper = document.querySelector(".choice-wrapper");
 
-    function selectCorrectAnswer() {
+const handleHover = function (e) {
+    if(e.target.classList.contains("choice-btn")){
+            const btn = e.target;
+            const siblings = btn.closest(".choice-wrapper").querySelectorAll(".choice-btn");
 
-    };
+            siblings.forEach(el => {
+                if (el !== btn) el.style.opacity = this;
+    
+            })
+        }
+}
+    
+    choiceWrapper.addEventListener("mouseover", handleHover.bind(0.5));
 
-    function showResult() {
-
-    };
+    choiceWrapper.addEventListener("mouseout", handleHover.bind(1));
 </script>
 
 </html>
