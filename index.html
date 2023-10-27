@@ -481,15 +481,9 @@ function showQuestion(currentQuestionIndex) {
         document.getElementById("choice3").textContent = choices[2];
     } else {
         displayResultPage();
+        const finishQuizSound = document.getElementById("finish-sound");
+        finishQuizSound.play();
     }
-}
-
-function checkAnswers() {
-    let resultMessage = "Correct Answers:\n";
-    for (let i = 0; i < questions.length; i++) {
-        resultMessage += `Question ${i + 1}: ${correctAnswerList[i]}\n`;
-    }
-    alert(resultMessage);
 }
 
 function retakeQuiz() {
@@ -525,7 +519,7 @@ function retakeQuiz() {
 function displayResultPage() {
     let displayResultMessage = `You got ${correctAnswersCounter}/${questions.length}`;
     let resultPage = `
-        <body class="result-body">
+        <body id="result-body">
             <h1 class="h1-result h1-result">Result:</h1>
             <h2 class="congratulation-message h2-result">Congratulations on finishing the quiz!</h2>
             <div class="result-share-btn">
@@ -537,12 +531,34 @@ function displayResultPage() {
                 <button class="button-result" onclick="checkAnswers()">Check Answers</button>
                 <button class="button-result">Subscribe!</button>
             </div>
+            <div id="results-text"><div>
+            <audio src="applause3.wav" id="finish-sound"></audio>
         </body>
     `;
     document.body.innerHTML = resultPage;
 }
 
 showQuestion(0);
+
+function checkAnswers() {
+    let resultMessageEl = document.getElementById("results-displayed");
+
+    if (!resultMessageEl) {
+        let resultMessage = "Correct Answers:\n";
+        for (let i = 0; i < questions.length; i++) {
+            resultMessage += `${i + 1}: ${questions[i].question} - ${correctAnswerList[i]}\n`;
+        }
+
+        const bodyEl = document.getElementById("body");
+        resultMessageEl = document.createElement("div");
+        resultMessageEl.id = "results-displayed";
+        resultMessageEl.innerHTML = resultMessage;
+        resultMessageEl.style.display = "block";
+        bodyEl.appendChild(resultMessageEl);
+    } else {
+        resultMessageEl.style.display = resultMessageEl.style.display === "none" ? "block" : "none";
+    }
+}
 
 const choiceWrapper = document.querySelector(".choice-wrapper");
 
