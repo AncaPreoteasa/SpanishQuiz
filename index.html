@@ -194,6 +194,18 @@
             .questions-image-container {
                 flex-direction: column;
             }
+            .cookies-message {
+               flex-direction: column;
+               align-items: center;
+            }
+            .cookies-paragraph{
+                text-align: center;
+                padding-top: 4em;
+                margin-top: 3em;
+            }
+            .btn-close-cookies {
+                max-width: fit-content;
+            }
         }
 
         @media only screen and (max-width: 820px) {
@@ -201,7 +213,7 @@
                 display: none;
             }
         }
-
+        
         @media only screen and (max-width: 1000px) {
             .questions-image-container {
                 flex-direction: column-reverse;
@@ -286,6 +298,10 @@
            justify-content: center;
      }
 
+     .cookies-message {
+               display: flex;
+     }
+
      .cookies-paragraph{
         padding: 1em;
      }
@@ -358,7 +374,7 @@
 <script>
     const cookieMessage = document.createElement('div');
     cookieMessage.classList.add('button-cookies-wrapper');
-    cookieMessage.innerHTML = '<p class="cookies-paragraph">We use cookies for improved functionality and analytics. </p> <button class="btn-close-cookies">Got it!</button>';
+    cookieMessage.innerHTML = '<div class="cookies-message"><p class="cookies-paragraph">We use cookies for improved functionality and analytics. </p> <button class="btn-close-cookies">Got it!</button></div>'
     document.body.append(cookieMessage);
 
     cookieMessage.style.backgroundColor = "#cfcccc;";
@@ -368,104 +384,110 @@
         cookieMessage.remove();
     })
 
-    // Define quiz questions and answers
     const questions = [
         {
             question: "How do you say 'Hello' in Spanish?",
             choices: ["Hola", "Ola", "Holla"],
-            correctAnswer: "Hola",
+            correctAnswer: 0,
         },
 
         {
             question: "How do you say 'Good morning'?",
             choices: ["Buenas noches", "Buenas tardes", "Buenos días"],
-            correctAnswer: "Buenos días",
+            correctAnswer: 2,
         },
         {
             question: "Which on is not a school supply?",
             choices: ["cuaderno", "boli", "patio"],
-            correctAnswer: "patio",
+            correctAnswer: 2,
         }, 
         {question: "What does 'Por favor' mean?",
         choices: ["I am begging you", "Thank you", "Please"],
-        correctAnswer: "I am begging you",
+        correctAnswer: 0,
          },
          {
             question: "How do you say 'Sorry'?",
           choices: ["Lo siento", "Saludos", "Gracias"],
-          correctAnswer: "Lo siento",
+          correctAnswer: 0,
          },
          {
           question: "What is 'I ate'?",
           choices: ["Comé", "Comí", "Como"],
-          correctAnswer: "Comí",
+          correctAnswer: 1,
          },
          {
             question: "Complete the sentence 'Perdón, me podría...'?",
           choices: ["comer el helado", "ayudar a mi amigo", "decir la hora"],
-          correctAnswer: "decir la hora",
+          correctAnswer: 2,
          },
          {
           question: "How do you say 'the coffee'?",
           choices: ["la café","el cafe","el café"],
-          correctAnswer: "el café",
+          correctAnswer: 2,
         },
         {
           question:
             "What is the next number in the list 'ocho, diez, doce...'?",
           choices: ["catorce", "quince", "trece"],
-          correctAnswer: "catorce",
+          correctAnswer: 0,
         },
         {
           question: "How do you say 'the fork'?",
           choices: ["la forca", "la tenedora", "el tenedor"],
-          correctAnswer: "el tenedor",
+          correctAnswer: 2,
         },
         {
           question: "How do you say 'I am full'?",
           choices: ["Soy lleno", "Estoy lleno", "Estoy vacía"],
-          correctAnswer: "Estoy lleno",
+          correctAnswer: 1,
         }
     ];
 
+    let correctAnswerList = ["Hola", "Buenos días", "patio", "I am begging you", "Lo siento", "Comí", "decir la hora", "el café", "catorce", "el tenedor", "Estoy lleno"];
     let currentQuestion = 0;
     let correctAnswersCounter = 0;
 
-    function showQuestion(currentQuestionIndex) {
+function handleClick(choiceIndex) {
+    if (choiceIndex === questions[currentQuestion].correctAnswer) {
+        correctAnswersCounter++;
+    }
+
+    document.getElementById("choice1").removeEventListener("click", handleClick);
+    document.getElementById("choice2").removeEventListener("click", handleClick);
+    document.getElementById("choice3").removeEventListener("click", handleClick);
+
+    console.log(choiceIndex);
+    console.log(questions[currentQuestion].correctAnswer);
+
+    showQuestion(currentQuestion + 1);
+}
+
+document.getElementById("choice1").addEventListener("click", () => handleClick(0));
+document.getElementById("choice2").addEventListener("click", () => handleClick(1));
+document.getElementById("choice3").addEventListener("click", () => handleClick(2));
+
+function showQuestion(currentQuestionIndex) {
     if (currentQuestionIndex < questions.length) {
-        let currentQuestion = questions[currentQuestionIndex];
+        currentQuestion = currentQuestionIndex;
 
-        let choices = currentQuestion.choices;
-        let correctAnswer = currentQuestion.choices[currentQuestion.correctAnswer];
+        let currentQuestionData = questions[currentQuestionIndex];
+        let choices = currentQuestionData.choices;
 
-        document.getElementById("question").textContent = currentQuestion.question;
+        document.getElementById("question").textContent = currentQuestionData.question;
         document.getElementById("choice1").textContent = choices[0];
         document.getElementById("choice2").textContent = choices[1];
         document.getElementById("choice3").textContent = choices[2];
-
-        function handleClick(choice) {
-            if (choice === correctAnswer) {
-                correctAnswersCounter++;
-            }
-            document.getElementById("choice1").removeEventListener("click", handleClick);
-            document.getElementById("choice2").removeEventListener("click", handleClick);
-            document.getElementById("choice3").removeEventListener("click", handleClick);
-            showQuestion(currentQuestionIndex + 1);
-        }
-
-        document.getElementById("choice1").addEventListener("click", () => handleClick(choices[0]));
-        document.getElementById("choice2").addEventListener("click", () => handleClick(choices[1]));
-        document.getElementById("choice3").addEventListener("click", () => handleClick(choices[2]));
-
     } else {
         displayResultPage();
     }
 }
 
+handleClick();
+
 function checkAnswers() {
     let resultMessage = "Correct Answers:\n";
     for (let i = 0; i < questions.length; i++) {
-        resultMessage += `Question ${i + 1}: ${questions[i].choices[questions[i].correctAnswer]}\n`;
+        resultMessage += `Question ${i + 1}: ${correctAnswerList[i]}\n`;
     }
     alert(resultMessage);
 }
