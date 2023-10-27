@@ -351,7 +351,7 @@
     </style>
 </head>
 
-<body>
+<body id="body">
     <div class="nav">
         <h1 class="h1-first">Quiz Time</h1> <span class="exclamation-mark">!</span>
         <div class="down-arrow"></div>
@@ -442,29 +442,31 @@
           correctAnswer: 1,
         }
     ];
-
+    
     let correctAnswerList = ["Hola", "Buenos días", "patio", "I am begging you", "Lo siento", "Comí", "decir la hora", "el café", "catorce", "el tenedor", "Estoy lleno"];
     let currentQuestion = 0;
     let correctAnswersCounter = 0;
 
-function handleClick(choiceIndex) {
-    if (choiceIndex === questions[currentQuestion].correctAnswer) {
-        correctAnswersCounter++;
+    
+    function handleClick(choiceIndex) {
+        if (choiceIndex === questions[currentQuestion].correctAnswer) {
+            correctAnswersCounter++;
+        }
+        
+        document.getElementById("choice1").removeEventListener("click", handleClick);
+        document.getElementById("choice2").removeEventListener("click", handleClick);
+        document.getElementById("choice3").removeEventListener("click", handleClick);
+        
+        showQuestion(currentQuestion + 1);
     }
-
-    document.getElementById("choice1").removeEventListener("click", handleClick);
-    document.getElementById("choice2").removeEventListener("click", handleClick);
-    document.getElementById("choice3").removeEventListener("click", handleClick);
-
-    console.log(choiceIndex);
-    console.log(questions[currentQuestion].correctAnswer);
-
-    showQuestion(currentQuestion + 1);
+    
+    function setupQuizEventListeners() {
+    document.getElementById("choice1").addEventListener("click", () => handleClick(0));
+    document.getElementById("choice2").addEventListener("click", () => handleClick(1));
+    document.getElementById("choice3").addEventListener("click", () => handleClick(2));
 }
-
-document.getElementById("choice1").addEventListener("click", () => handleClick(0));
-document.getElementById("choice2").addEventListener("click", () => handleClick(1));
-document.getElementById("choice3").addEventListener("click", () => handleClick(2));
+    
+setupQuizEventListeners()
 
 function showQuestion(currentQuestionIndex) {
     if (currentQuestionIndex < questions.length) {
@@ -482,8 +484,6 @@ function showQuestion(currentQuestionIndex) {
     }
 }
 
-handleClick();
-
 function checkAnswers() {
     let resultMessage = "Correct Answers:\n";
     for (let i = 0; i < questions.length; i++) {
@@ -495,7 +495,31 @@ function checkAnswers() {
 function retakeQuiz() {
     currentQuestion = 0;
     correctAnswersCounter = 0;
+    let initialPage = `
+    <body>
+    <div class="nav">
+        <h1 class="h1-first">Quiz Time</h1> <span class="exclamation-mark">!</span>
+        <div class="down-arrow"></div>
+    </div>
+    <hr>
+    <div class="questions-image-container">
+        <div class="quiz-questions">
+            <h2 id="question"></h2>
+            <div id="answer-buttons" class="choice-wrapper">
+                <button id="choice1" class="choice-btn"></button>
+                <button id="choice2" class="choice-btn"></button>
+                <button id="choice3" class="choice-btn"></button>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="Images/espanol.avif"></img>
+        </div>
+    </div>
+</body>`
+    document.body.innerHTML = initialPage;
+    setupQuizEventListeners()
     showQuestion(0);
+    
 }
 
 function displayResultPage() {
