@@ -518,17 +518,18 @@ function checkAnswers() {
     let resultMessageEl = document.getElementById("results-displayed");
 
     if (!resultMessageEl) {
-        let resultMessage = "Correct Answers:\n";
-        for (let i = 0; i < questions.length; i++) {
-            resultMessage += `${i + 1}: ${questions[i].question} - ${correctAnswerList[i]}\n`;
-        }
-
         const bodyEl = document.getElementById("body");
         resultMessageEl = document.createElement("div");
         resultMessageEl.id = "results-displayed";
-        resultMessageEl.innerHTML = resultMessage;
         resultMessageEl.style.display = "block";
         bodyEl.appendChild(resultMessageEl);
+
+        for (let i = 0; i < questions.length; i++) {
+            let currentAnswer = `${i + 1}: ${questions[i].question} - ${correctAnswerList[i]}\n`;
+            let currentAnswerEl = document.createElement("div");
+            currentAnswerEl.innerText = currentAnswer;
+            resultMessageEl.appendChild(currentAnswerEl);
+        }
     } else {
         resultMessageEl.style.display = resultMessageEl.style.display === "none" ? "block" : "none";
     }
