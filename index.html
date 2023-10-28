@@ -443,7 +443,6 @@
         }
     ];
     
-    let correctAnswerList = ["Hola", "Buenos días", "patio", "I am begging you", "Lo siento", "Comí", "decir la hora", "el café", "catorce", "el tenedor", "Estoy lleno"];
     let currentQuestion = 0;
     let correctAnswersCounter = 0;
 
@@ -525,9 +524,11 @@ function checkAnswers() {
         bodyEl.appendChild(resultMessageEl);
 
         for (let i = 0; i < questions.length; i++) {
-            let currentAnswer = `${i + 1}: ${questions[i].question} - ${correctAnswerList[i]}\n`;
+            let question = questions[i].question;
+            let correctAnswer = questions[i].choices[questions[i].correctAnswer];
+            let currentAnswerText = `${i + 1}: ${question} - ${correctAnswer}\n`;
             let currentAnswerEl = document.createElement("div");
-            currentAnswerEl.innerText = currentAnswer;
+            currentAnswerEl.innerText = currentAnswerText;
             resultMessageEl.appendChild(currentAnswerEl);
         }
     } else {
