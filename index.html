@@ -401,14 +401,14 @@
             choices: ["cuaderno", "boli", "patio"],
             correctAnswer: 2,
         }, 
-        {question: "What does 'Por favor' mean?",
-        choices: ["I am begging you", "Thank you", "Please"],
-        correctAnswer: 0,
+        {   question: "What does 'Por favor' mean?",
+            choices: ["I am begging you", "Thank you", "Please"],
+            correctAnswer: 0,
          },
          {
             question: "How do you say 'Sorry'?",
-          choices: ["Lo siento", "Saludos", "Gracias"],
-          correctAnswer: 0,
+            choices: ["Lo siento", "Saludos", "Gracias"],
+            correctAnswer: 0,
          },
          {
           question: "What is 'I ate'?",
@@ -487,33 +487,7 @@ function showQuestion(currentQuestionIndex) {
 }
 
 function retakeQuiz() {
-    currentQuestion = 0;
-    correctAnswersCounter = 0;
-    let initialPage = `
-    <body>
-    <div class="nav">
-        <h1 class="h1-first">Quiz Time</h1> <span class="exclamation-mark">!</span>
-        <div class="down-arrow"></div>
-    </div>
-    <hr>
-    <div class="questions-image-container">
-        <div class="quiz-questions">
-            <h2 id="question"></h2>
-            <div id="answer-buttons" class="choice-wrapper">
-                <button id="choice1" class="choice-btn"></button>
-                <button id="choice2" class="choice-btn"></button>
-                <button id="choice3" class="choice-btn"></button>
-            </div>
-        </div>
-        <div class="image-container">
-            <img src="Images/espanol.avif"></img>
-        </div>
-    </div>
-</body>`
-    document.body.innerHTML = initialPage;
-    setupQuizEventListeners()
-    showQuestion(0);
-    
+    location.reload();
 }
 
 function displayResultPage() {
